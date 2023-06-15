@@ -2,6 +2,8 @@
 
 <script>
   import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
+  import { goto } from '$app/navigation';
+
   let formErrors = {};
   
   async function postSignUp() {
@@ -14,12 +16,12 @@
 
     // if (evt.target['password'].value != evt.target['password-confirmation'].value) 
     // {
-    //   formErrors['password'] = { message: 'Password confirmation does not match' };
-    //   return;
+    //   formErrors.password = { message: 'Password confirmation does not match' };
+    //   console.log(formErrors.password)
     // }
 
     const userData = {
-      name: evt.target['name'].value,
+      name: evt.target['username'].value,
       email: evt.target['email'].value,
       password: evt.target['password'].value,
       // passwordConfirm: evt.target['password-confirmation'].value
@@ -36,15 +38,11 @@
     });
 
     if (resp.status == 200) {
-
-      if (resp.success) {
         postSignUp();
-      } else {
-        throw 'Sign up succeeded but authentication failed';
-      }
     } else {
       const res = await resp.json();
-      formErrors = res.data;
+      formErrors = res.error;
+      console.log(formErrors);
     }
   }
 </script>
@@ -67,7 +65,7 @@
             <input type="text" name="username" placeholder="johndoe" class="input input-bordered w-full" />
             {#if 'name' in formErrors}
             <label class="label" for="username Error">
-                <span class="label-text-alt text-red-500">{formErrors['name'].message}</span>
+                <span class="label-text-alt text-red-500">{formErrors.name}</span>
             </label>
             {/if}
         </div>
@@ -77,10 +75,10 @@
             <label class="label" for="email">
                 <span class="label-text">Email</span>
             </label>
-            <input type="email" name="email" placeholder="john@example.com" class="input input-bordered w-full" required/>
+            <input type="email" name="email" placeholder="john@example.com" class="input input-bordered w-full"/>
             {#if 'email' in formErrors}
             <label class="label" for="Email Error">
-                <span class="label-text-alt text-red-500">{formErrors['email'].message}</span>
+                <span class="label-text-alt text-red-500">{formErrors.email}</span>
             </label>
             {/if}
         </div>
@@ -93,7 +91,7 @@
             <input type="password" name="password" placeholder="" class="input input-bordered w-full" required />
             {#if 'password' in formErrors}
             <label class="label" for="password">
-                <span class="label-text-alt text-red-500">{formErrors['password'].message}</span>
+                <span class="label-text-alt text-red-500">{formErrors.password}</span>
             </label>
             {/if}
         </div>
@@ -104,16 +102,16 @@
                 <span class="label-text">Confirm Password</span>
             </label>
             <input type="password" name="password-confirmation" placeholder="" class="input input-bordered w-full" required />
-            {#if 'password' in formErrors}
+            <!-- {#if 'password' in formErrors}
             <label class="label" for="password">
                 <span class="label-text-alt text-red-500">{formErrors['password'].message}</span>
             </label>
-            {/if}
+            {/if} -->
         </div>
 
       <!-- Create User Button -->
         <div class="mt-5 flex justify-center">
-          <button class="bg-white hover:bg-black hover:text-white w-48 flex justify-around rounded-lg my-8 py-4 border flex justify-center">
+          <button class="bg-black text-white w-48 flex justify-around rounded-lg my-8 py-4 border flex justify-center">
           <div class="flex justify-around">
               <div>CREATE USER</div>
               <!-- If the isLoading store is true, show the spinner animation -->
