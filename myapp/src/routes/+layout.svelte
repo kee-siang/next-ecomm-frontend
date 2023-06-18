@@ -1,12 +1,13 @@
 <script>
   import "../app.css";
   import { goto } from '$app/navigation';
+  import { LogOut } from "../utils/auth";
 
   function signUp() {
     goto("/users/new");
   }
 
-  function signIn() {
+  function LogIn() {
     goto("/login");
   }
 
@@ -18,8 +19,8 @@
   </div>
   <div>
     <button on:click={signUp} class="p-4 m-3 btn btn-active border-none hover:bg-white hover:text-black btn-ghost text-white">Sign Up</button>
-    <button class="p-4 m-3 btn btn-active border-none btn-ghost hover:bg-white hover:text-black text-white">Log Out</button>
-    <button on:click={signIn} class="p-4 m-3 btn btn-active border-none hover:bg-white hover:text-black btn-ghost text-white">Log In</button>
+    <button on:click={LogOut} class="p-4 m-3 btn btn-active border-none btn-ghost hover:bg-white hover:text-black text-white">Log Out</button>
+    <button on:click={LogIn} class="p-4 m-3 btn btn-active border-none hover:bg-white hover:text-black btn-ghost text-white">Log In</button>
   </div>
 </nav>
 
