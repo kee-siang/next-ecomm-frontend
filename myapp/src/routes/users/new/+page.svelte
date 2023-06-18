@@ -11,7 +11,7 @@
 	let anotherError = writable(false);
   let isLoading = writable(false);
 
-	async function postSignUp() {
+	function postSignUp() {
 		goto('/');
 	}
 
@@ -68,7 +68,6 @@
 		} else {
 			const res = await resp.json();
 			formErrors = res.error;
-			console.log(formErrors);
 		}
 	}
 </script>
