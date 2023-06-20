@@ -4,14 +4,18 @@ const emptyAuth = {
     "token": "",
 }
 
+//Function to handle the sign-out process//
+export async function LogOut() {
+    localStorage.setItem("auth", JSON.stringify(emptyAuth));
+    return true;
+}
+
 // Function to handle the sign-in process//
 export async function authenticateUser(email, password) {
 
-    console.log(email, password);
-
     // Make the sign-in API request
     const resp = await fetch(
-        PUBLIC_BACKEND_BASE_URL + '/sign-in',
+        PUBLIC_BACKEND_BASE_URL + '/auth',
         {
             method: 'POST',
             mode: 'cors',
