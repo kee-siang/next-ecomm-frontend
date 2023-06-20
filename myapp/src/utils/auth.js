@@ -15,7 +15,7 @@ export async function authenticateUser(email, password) {
 
     // Make the sign-in API request
     const resp = await fetch(
-        PUBLIC_BACKEND_BASE_URL + '/sign-in',
+        PUBLIC_BACKEND_BASE_URL + '/auth',
         {
             method: 'POST',
             mode: 'cors',
