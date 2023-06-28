@@ -22,7 +22,6 @@
         if(login.success == true){
             goto('/');
             loginStatus.set(false);
-            isLoggedIn();
         }else{
             loginStatus.set(true);
         }
