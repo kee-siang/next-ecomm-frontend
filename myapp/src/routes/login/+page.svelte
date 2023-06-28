@@ -2,8 +2,10 @@
 
 <script>
     import { goto } from '$app/navigation';
-    import { authenticateUser } from '../../utils/auth.js';
+    import { authenticateUser, isLoggedIn } from '../../utils/auth.js';
     import { writable } from 'svelte/store';
+
+
     let isLoading = writable(false);
     let email = '';
     let password = '';
@@ -20,7 +22,6 @@
         if(login.success == true){
             goto('/');
             loginStatus.set(false);
-
         }else{
             loginStatus.set(true);
         }
