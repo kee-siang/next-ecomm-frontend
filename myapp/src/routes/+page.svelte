@@ -54,7 +54,7 @@
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
 			},
 			body: JSON.stringify(imgData)
 		})
@@ -76,7 +76,6 @@
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
-        'Authorization': `Bearer ${PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
 			},
 		body: JSON.stringify({ imageId })
     });
