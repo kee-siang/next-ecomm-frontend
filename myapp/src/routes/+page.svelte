@@ -1,6 +1,6 @@
 <script>
     import { showButton, getTokenFromLocalStorage} from '../utils/auth.js'
-    import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
+    import { PUBLIC_BACKEND_BASE_URL, PUBLIC_STRIPE_PUBLISHABLE_KEY } from '$env/static/public';
     import { writable } from 'svelte/store'
     import { uploadMedia } from '../utils/s3-uploader.js';
 
@@ -69,15 +69,18 @@
 
   async function checkout (ecomm){
     const imageId = ecomm.id;
+    
 
     const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/create-checkout-session', {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
+        'Authorization': `Bearer ${PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
 			},
 		body: JSON.stringify({ imageId })
     });
+
     if (resp.ok) {
     const sessionUrl = await resp.json();
     // Redirect the user to the Stripe checkout page using the session URL
