@@ -3,10 +3,8 @@
     import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
     import { writable } from 'svelte/store'
     import { uploadMedia } from '../utils/s3-uploader.js';
-	import { goto } from '$app/navigation';
 
     let window_display = writable(false);
-    
     let formErrors = {}
     export let data;
 
@@ -68,7 +66,27 @@
 			formErrors = res.error;
 		}
   }
-    
+
+  async function checkout (ecomm){
+    const imageId = ecomm.id;
+
+    const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/create-checkout-session', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		body: JSON.stringify({ imageId })
+    });
+    if (resp.ok) {
+    const sessionUrl = await resp.json();
+    // Redirect the user to the Stripe checkout page using the session URL
+    window.location.href = sessionUrl;
+  } else {
+    console.error('Failed to create checkout session:', resp.statusText);
+    // Handle error scenario
+  }
+  }
 </script>
 
 <!-- This indicates that the Svelte component requires the AWS SDK for S3 (Simple Storage Service) 
@@ -196,7 +214,8 @@
     <p>{ecomm.price}</p>
     <p>{ecomm.description}</p>
     <div class="card-actions justify-end">
-      <button class="btn btn-primary">Buy Now</button>
+    <button on:click={() => checkout(ecomm)} class="btn btn-primary" type="submit" id="checkout-button">Buy Now</button>
+      <!-- <button  on:click={openPaymentGateWay}>Buy Now</button> -->
     </div>
   </div>
 </div>
