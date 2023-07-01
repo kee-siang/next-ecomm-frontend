@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@stripe/stripe-js": "^1.54.1",
 		"stripe": "^12.10.0"
 	}
 }
