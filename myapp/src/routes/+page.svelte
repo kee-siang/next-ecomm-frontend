@@ -1,6 +1,6 @@
 <script>
     import { showButton, getTokenFromLocalStorage} from '../utils/auth.js'
-    import { PUBLIC_BACKEND_BASE_URL, PUBLIC_STRIPE_PUBLISHABLE_KEY } from '$env/static/public';
+    import { PUBLIC_BACKEND_BASE_URL} from '$env/static/public';
     import { writable } from 'svelte/store'
     import { uploadMedia } from '../utils/s3-uploader.js';
 
